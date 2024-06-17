@@ -1,0 +1,44 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+  <title>位置情報取得</title> 
+</head> 
+<body> 
+  <h1>あなたの現在の位置情報</h1> 
+  <div id="location"></div> 
+ 
+  <script> 
+    // 位置情報サービスが利用可能かどうか確認する 
+    if (navigator.geolocation) { 
+      // 位置情報を取得する 
+      navigator.geolocation.getCurrentPosition( 
+        (position) => { 
+          // ユーザーの緯度と経度を取得 
+          const latitude = position.coords.latitude; 
+          const longitude = position.coords.longitude; 
+          // ユーザーの移動速度を取得（メートル毎秒） 
+          const speed = position.coords.speed; 
+ 
+          // 取得した情報をHTML要素に表示 
+          const locationElement = document.getElementById('location'); 
+          locationElement.innerHTML = ` 
+            緯度: ${latitude} 
+            経度: ${longitude} 
+            移動速度: ${speed ? speed + ' m/s' : '不明'} 
+          `; 
+        }, 
+        (error) => { 
+          // エラーが発生した場合の処理 
+          const locationElement = document.getElementById('location'); 
+          locationElement.innerHTML = '位置情報取得に失敗しました。'; 
+          console.error('位置情報取得に失敗しました:', error); 
+        } 
+      ); 
+    } else { 
+      // 位置情報サービスが利用できない場合の処理 
+      const locationElement = document.getElementById('location'); 
+      locationElement.innerHTML = 'このブラウザでは位置情報サービスが利用できません。'; 
+    } 
+  </script> 
+</body> 
+</html> 
