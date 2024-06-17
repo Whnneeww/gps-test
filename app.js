@@ -19,4 +19,3 @@ app.get('/location', (req, res) =&gt; {
     // エラーが発生した場合の処理 
     res.status(500).json({ error: '位置情報取得に失敗しました' }); 
   } 
-); 
